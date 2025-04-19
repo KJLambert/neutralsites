@@ -1,4 +1,14 @@
 # Config file for Python.
+[project]
+name = "neutralsites"
+version = "0.1.0"
+description = "This project is meant to capture all local dependencies, which will be managed by uv"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "biopython>=1.83",
+]
+
 # Should be kept the same as nf-core/tools to avoid fighting with template synchronisation.
 [tool.black]
 line-length = 120
