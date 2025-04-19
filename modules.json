@@ -1,0 +1,11 @@
+{
+    "name": "KJLambert/neutralsites",
+    "homePage": "https://github.com/KJLambert/neutralsites",
+    "repos": {
+        "https://github.com/nf-core/modules.git": {
+            "modules": {
+                "nf-core": {}
+            }
+        }
+    }
+}
