@@ -1,4 +1,12 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.8"
+# dependencies = [
+#     "biopython",
+#     "click",
+#     "pathlib",
+# ]
+# ///
 """
 Find all neutral sites in a genome, return a table with
 region_name | convergent | length | uniqueness | sequence | sequence flanking 2000 | notes
@@ -11,8 +19,6 @@ Report sequence and 1000bp flanking regions.
 from Bio import SeqIO
 import sys
 import click
-#import requests # add option to pull gbk with the API
-#import yaml
 from pathlib import Path
 
 
@@ -38,7 +44,7 @@ def find_intergenic_regions(gbk_file, out_path):
                         'end': int(feature.location.end),
                         'strand': int(feature.location.strand),
                         'type': feature.type,
-                        'short_tag': feature.qualifiers.get('locus_tag', ['Unknown'])[0].split('_')[2],
+                        'short_tag': feature.qualifiers.get('locus_tag', ['Unknown'])[0].split('_')[1],
                         'locus_tag': feature.qualifiers.get('locus_tag', ['Unknown'])[0],
                         'gene': feature.qualifiers.get('gene', ['Unknown'])[0],
                         'product': feature.qualifiers.get('product', ['Unknown'])[0]
@@ -76,7 +82,7 @@ def find_intergenic_regions(gbk_file, out_path):
                     intergenic_regions.append(region)
     
     # Write results to file
-    with open(out_path / "neutral_sites.tsv", 'w') as f:
+    with open(out_path / "candidate_sites.tsv", 'w') as f:
         f.write("region_name\tconvergent\tlength\tneutral_sequence\tflanking_Sequences\tNotes\n")
         for i, region in enumerate(intergenic_regions):
             #name = f"neutral_site_{i+1}"

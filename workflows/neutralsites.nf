@@ -8,7 +8,7 @@ def summary_params = NfcoreSchema.paramsSummaryMap(workflow, params)
 
 // TODO: Add all file path parameters for the pipeline to the list below
 // Check input path parameters to see if they exist
-def checkPathParamList = []
+def checkPathParamList = [params.gbk]
 for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true) } }
 
 
@@ -24,9 +24,7 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
 
-//
-// SUBWORKFLOW: Consisting of a mix of local and nf-core/modules
-//
+include { find_candidates        } from '../modules/local/find_candidates/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -46,9 +44,11 @@ for (param in checkPathParamList) { if (param) { file(param, checkIfExists: true
 */
 
 workflow NEUTRALSITES {
+    ch_gbk = Channel.fromPath(params.gbk)
 
+    candidates = find_candidates(ch_gbk)
+    //check_uniqueness = CHECK_UNIQUENESS(candidates)
 }
-
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     COMPLETION EMAIL AND SUMMARY

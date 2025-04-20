@@ -1,0 +1,11 @@
+name: find_candidates
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - uv
+  - python=3.8
+  - biopython
+  - click
+  - pathlib

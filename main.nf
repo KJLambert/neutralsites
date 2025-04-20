@@ -28,7 +28,7 @@ include { NEUTRALSITES } from './workflows/neutralsites'
 //
 // WORKFLOW: Run main KJLambert/neutralsites analysis pipeline
 //
-workflow NFCORE_NEUTRALSITES {
+workflow MAIN {
     NEUTRALSITES ()
 }
 
@@ -40,10 +40,9 @@ workflow NFCORE_NEUTRALSITES {
 
 //
 // WORKFLOW: Execute a single named workflow for the pipeline
-// See: https://github.com/nf-core/rnaseq/issues/619
 //
 workflow {
-    NFCORE_NEUTRALSITES ()
+    NEUTRALSITES ()
 }
 
 /*
