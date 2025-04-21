@@ -15,10 +15,10 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 <!-- TODO: Add full-sized test dataset and amend the paragraph below if applicable -->
 
 ## Pipeline summary
-* The pipeline is set up to run a script (find_intergenic_regions). This will return a file with candidate_sites.
+* The pipeline is set up to run a script (find_intergenic_regions). This will return a file with a list of genome regions that are potentially good edit sites.
 
 ### Planned
-* Possibly add a step that deals with obtaining inputs from various places, currently the user provides a gbff or gbk file.
+* Possibly add a step that deals with obtaining inputs from various sources (s3, custome API or NCBI datasets), currently the user provides a gbff or gbk file.
 * run a blast job to look for unique sites
 * update the output table with sites that are unique in the genome.
 
@@ -30,7 +30,12 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 
 ## Full documentation
 
-<!-- TODO: Fill in this section with how to fully use the pipeline, what the inputs are and what the outputs look like. If this section ends up being super long, feel free to create a new docs/ directory and add details there. -->
+### input
+provide a ganbank file (specifically genes should be labeled via locus tag and the second part of the locus tag should be a gene number eg. GHJGK_12345)
+
+### output
+candidate_sites.tsv
+`region_name | convergent | length | uniqueness | sequence | sequence flanking 2000 | notes`
 
 ## Contributions and support
 
