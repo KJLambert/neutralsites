@@ -31,10 +31,11 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 ## Full documentation
 
 ### input
-provide a ganbank file (specifically genes should be labeled via locus tag and the second part of the locus tag should be a gene number eg. GHJGK_12345)
+provide a ganbank file example for testing at assets/GCA_006094495.1/genomic.gbff.(specifically genes should be labeled via locus tag and the second part of the locus tag should be a relative number eg. GHJGK_12345)
 
 ### output
 candidate_sites.tsv
+
 `region_name | convergent | length | uniqueness | sequence | sequence flanking 2000 | notes`
 
 ## Contributions and support
