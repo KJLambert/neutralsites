@@ -10,6 +10,9 @@ dependencies = [
     "black>=24.8.0",
     "click>=8.1.8",
     "pathlib>=1.0.1",
+    "scikit-bio>=0.5.8",  # For sequence analysis and clustering
+    "numpy>=1.24.0",      # Required by scikit-bio
+    "scipy>=1.10.0",      # Required for clustering
 ]
 
 # Should be kept the same as nf-core/tools to avoid fighting with template synchronisation.

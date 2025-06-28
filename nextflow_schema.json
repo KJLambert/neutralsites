@@ -5,6 +5,27 @@
     "description": "A nextflow workflow for finding ideal neutral sites in a microbial genome.",
     "type": "object",
     "definitions": {
+        "input_options": {
+            "title": "Input options",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "description": "Define the input files for the pipeline.",
+            "required": [],
+            "properties": {
+                "gbk": {
+                    "type": "string",
+                    "description": "Path to a single GenBank file.",
+                    "fa_icon": "fas fa-file-code",
+                    "help_text": "Path to a single GenBank file (.gbk or .gbff extension). Use this for processing a single file."
+                },
+                "csv": {
+                    "type": "string",
+                    "description": "Path to a CSV file containing multiple GenBank file paths.",
+                    "fa_icon": "fas fa-file-csv",
+                    "help_text": "Path to a CSV file with a header row and one column containing paths to GenBank files. Use this for processing multiple files. The CSV should have a header row and one column with file paths."
+                }
+            }
+        },
         "email_options": {
             "title": "Email options",
             "type": "object",
@@ -129,6 +150,9 @@
         }
     },
     "allOf": [
+        {
+            "$ref": "#/definitions/input_options"
+        },
         {
             "$ref": "#/definitions/email_options"
         },

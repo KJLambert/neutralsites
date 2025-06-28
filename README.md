@@ -31,7 +31,36 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 ## Full documentation
 
 ### input
-provide a ganbank file example for testing at assets/GCA_006094495.1/genomic.gbff.(specifically genes should be labeled via locus tag and the second part of the locus tag should be a relative number eg. GHJGK_12345)
+The pipeline supports two input methods:
+
+#### Single GenBank File
+Provide a genbank file example for testing at `assets/GCA_006094495.1/genomic.gbff`. (specifically genes should be labeled via locus tag and the second part of the locus tag should be a relative number eg. GHJGK_12345)
+
+```bash
+nextflow run main.nf --gbk assets/GCA_006094495.1/genomic.gbff
+```
+
+#### Multiple GenBank Files (CSV Input)
+For processing multiple files, create a CSV file with a header row and one column containing the paths to your GenBank files:
+
+```csv
+file_path
+/path/to/genome1.gbk
+/path/to/genome2.gbk
+/path/to/genome3.gbk
+```
+
+Then run the pipeline with:
+```bash
+nextflow run main.nf --csv genomes.csv
+```
+
+**Notes:**
+- The CSV must have a header row
+- The column name can be anything (e.g., `file_path`, `genbank_file`, etc.)
+- All file paths must be valid and accessible
+- The pipeline will process each file in parallel
+- Only one input method can be used at a time (either `--gbk` or `--csv`, not both)
 
 ### output
 candidate_sites.tsv
