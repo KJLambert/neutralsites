@@ -74,7 +74,7 @@ nextflow run main.nf --csv genomes.csv
 ### output
 candidate_sites.tsv
 
-`region_name | convergent | length | uniqueness | sequence | sequence flanking 2000 | notes`
+`region_name | convergent | length | sequence | sequence flanking 2000 | note | match_count | uniqueness`
 
 ## Contributions and support
 
