@@ -17,6 +17,15 @@ The pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool
 ## Pipeline summary
 * The pipeline is set up to run a script (find_intergenic_regions). This will return a file with a list of genome regions that are potentially good edit sites.
 
+### Enhanced Workflow
+The pipeline now includes three processing steps:
+
+1. **Find Candidate Sites**: Identifies intergenic regions between convergent genes (200-500bp)
+2. **Check Uniqueness** (Optional): Uses BLAST to verify sites are unique within the genome
+3. **Quality Assessment** (Optional): Evaluates sites based on GC content, repeat content, sequence complexity, and length
+
+For detailed information about the enhanced workflow, see [ENHANCED_WORKFLOW.md](ENHANCED_WORKFLOW.md).
+
 ### Planned
 * Possibly add a step that deals with obtaining inputs from various sources (s3, custome API or NCBI datasets), currently the user provides a gbff or gbk file.
 * run a blast job to look for unique sites

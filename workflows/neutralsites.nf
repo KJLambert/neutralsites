@@ -48,6 +48,8 @@ for (param in checkPathParamList) {
 */
 
 include { find_candidates        } from '../modules/local/find_candidates/main'
+include { check_uniqueness       } from '../modules/local/check_uniqueness/main'
+include { quality_assessment     } from '../modules/local/quality_assessment/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,7 +74,9 @@ workflow NEUTRALSITES {
     
     if (params.gbk) {
         // Single file input
-        ch_gbk = Channel.fromPath(params.gbk)
+        ch_gbk = Channel.fromPath(params.gbk).map { file -> 
+            [file.baseName, file] 
+        }
     } else if (params.csv) {
         // CSV input with multiple files
         ch_gbk = Channel
@@ -86,12 +90,20 @@ workflow NEUTRALSITES {
                     log.error "No valid file path found in CSV row: ${row}"
                     System.exit(1)
                 }
-                return file(filePath, checkIfExists: true)
+                def file = file(filePath, checkIfExists: true)
+                // Use filename as sample ID, or extract from CSV if available
+                [file.baseName, file]
             }
     }
 
+    // Step 1: Find candidate sites
     candidates = find_candidates(ch_gbk)
-    //check_uniqueness = CHECK_UNIQUENESS(candidates)
+    
+    // Step 2: Check uniqueness using BLAST (optional)
+    unique_sites = params.skip_uniqueness_check ? candidates : check_uniqueness(candidates)
+    
+    // Step 3: Quality assessment (optional)
+    quality_assessed = params.skip_quality_assessment ? unique_sites : quality_assessment(unique_sites)
 }
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

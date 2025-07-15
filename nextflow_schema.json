@@ -147,6 +147,80 @@
                     "fa_icon": "fas fa-bacon"
                 }
             }
+        },
+        "processing_options": {
+            "title": "Processing options",
+            "type": "object",
+            "fa_icon": "fas fa-cogs",
+            "description": "Configure processing steps and parameters.",
+            "required": [],
+            "properties": {
+                "skip_uniqueness_check": {
+                    "type": "boolean",
+                    "description": "Skip the uniqueness checking step using BLAST.",
+                    "default": false,
+                    "fa_icon": "fas fa-fast-forward",
+                    "help_text": "Set to true to skip the BLAST-based uniqueness checking step."
+                },
+                "skip_quality_assessment": {
+                    "type": "boolean",
+                    "description": "Skip the quality assessment step.",
+                    "default": false,
+                    "fa_icon": "fas fa-chart-line",
+                    "help_text": "Set to true to skip the quality assessment step."
+                },
+                "blast_identity_threshold": {
+                    "type": "number",
+                    "description": "BLAST identity threshold for uniqueness checking.",
+                    "default": 95.0,
+                    "minimum": 0,
+                    "maximum": 100,
+                    "fa_icon": "fas fa-percentage",
+                    "help_text": "Minimum identity percentage for BLAST matches to be considered duplicates."
+                },
+                "quality_score_threshold": {
+                    "type": "number",
+                    "description": "Minimum quality score for sites to be recommended.",
+                    "default": 0.5,
+                    "minimum": 0,
+                    "maximum": 1,
+                    "fa_icon": "fas fa-star",
+                    "help_text": "Minimum quality score (0-1) for sites to be marked as recommended."
+                }
+            }
+        },
+        "aws_batch_options": {
+            "title": "AWS Batch options",
+            "type": "object",
+            "fa_icon": "fab fa-aws",
+            "description": "Configure AWS Batch execution parameters.",
+            "required": [],
+            "properties": {
+                "awsqueue": {
+                    "type": "string",
+                    "description": "AWS Batch job queue name.",
+                    "fa_icon": "fas fa-list",
+                    "help_text": "The name of the AWS Batch job queue to submit jobs to."
+                },
+                "awsregion": {
+                    "type": "string",
+                    "description": "AWS region for Batch jobs.",
+                    "fa_icon": "fas fa-globe",
+                    "help_text": "The AWS region where your Batch compute environment is located."
+                },
+                "awsjobrole": {
+                    "type": "string",
+                    "description": "IAM job role for AWS Batch jobs.",
+                    "fa_icon": "fas fa-user-shield",
+                    "help_text": "The IAM role that Batch jobs will use for S3 access and other AWS services."
+                },
+                "awsvolumes": {
+                    "type": "string",
+                    "description": "EBS volumes to mount in Batch jobs.",
+                    "fa_icon": "fas fa-hdd",
+                    "help_text": "Comma-separated list of EBS volumes to mount in Batch jobs (optional)."
+                }
+            }
         }
     },
     "allOf": [
@@ -161,6 +235,12 @@
         },
         {
             "$ref": "#/definitions/generic_options"
+        },
+        {
+            "$ref": "#/definitions/processing_options"
+        },
+        {
+            "$ref": "#/definitions/aws_batch_options"
         }
     ]
 }
